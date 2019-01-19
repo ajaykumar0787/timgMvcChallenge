@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Orders";
+}
+
+<h3>@ViewBag.Message</h3>
+<h5>
+    Click on the client name to view order detais
+</h5>
+
+<div ng-app="orderViewerApp" ng-controller="orderViewerController" ng-init="init()">
+    <div ng-if="isLoading" id="loaderDiv">
+        <div id="loader"></div>
+    </div>
+    <div ng-if="!isLoading" class="table-responsive">
+        <div class="panel-group" ng-repeat="order in orders">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" title="Click to view order details" href="#Collapse{{order.Id}}"><strong>{{order.ClientName}}</strong></a>
+                    </h4>
+                </div>
+                <div id="Collapse{{order.Id}}" class="panel-collapse collapse">
+                    <hr />
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <strong>Order Date: </strong> {{order.OrderDate | date:'yyyy-MM-dd'}}
+                        </div>
+                        <div class="col-lg-4">
+                            <strong>Total Price: </strong> {{order.Total | currency}}
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <div>
+                        <div class="col-xs-1"></div>
+                        <div class="col-lg-12">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="col-lg-3">Product Code</th>
+                                        <th scope="col" class="col-lg-3">Quantity</th>
+                                        <th scope="col" class="col-lg-3">Total Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="orderItem in order.OrderItems">
+                                        <th scope="row">{{orderItem.ProductCode}}</th>
+                                        <td>
+                                            {{orderItem.Quantity}}
+                                        </td>
+                                        <td>
+                                            {{orderItem.TotalPrice | currency}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-xs-1"></div>
+                    </div>
+                    <div class="panel-footer">
+                        <strong>GST: </strong> {{order.GST | currency}}
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+

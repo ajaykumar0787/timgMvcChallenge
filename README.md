@@ -17,14 +17,7 @@ The application has 2 pages
 * In the web.config, modify the connection string (if required)
 * Run the solution now (preferrably in chrome) and it should also resolve the Nuget packages. If you get an error, just right click on the solution and click restore nuget packages
 * If you are using VS 2015 or above, you may get an error with roslyn csc
-* To fix it, open the web project in notepad and paste the below
-	<Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
-    <ItemGroup>
-      <RoslynFiles Include="$(CscToolPath)\*" />
-    </ItemGroup>
-    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
-    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
-  </Target>
+* To fix it, open the web project in notepad and copy paste the contents from roslynerrorfix.txt file
 * Hurray! you should see the TIMG Order Viewer
 * There is a sample unit test for repository as well. Should you wish to execute it, change the connection string and run the test
 
